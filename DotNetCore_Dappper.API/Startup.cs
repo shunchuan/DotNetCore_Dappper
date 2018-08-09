@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace BeehooeDataService.API
+namespace DotNetCore_Dappper.API
 {
     public class Startup
     {

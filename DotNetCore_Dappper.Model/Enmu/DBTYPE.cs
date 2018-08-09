@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BeehooeDataService.Model.Enmu
+namespace DotNetCore_Dappper.Model.Enmu
 {
     public enum DBTYPE
     {

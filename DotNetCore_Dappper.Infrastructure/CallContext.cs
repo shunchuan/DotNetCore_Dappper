@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace BeehooeDataService.Infrastructure
+namespace DotNetCore_Dappper.Infrastructure
 {
     /// <summary>
     /// CallContext已经不适用于 .NETStandard 或 .NET Core 。

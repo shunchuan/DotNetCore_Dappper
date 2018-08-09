@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BeehooeDataService.Model.Enmu;
+using DotNetCore_Dappper.Model.Enmu;
 
-namespace BeehooeDataService.Model
+namespace DotNetCore_Dappper.Model
 {
     public class DatabaseModel
     {

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-using BeehooeDataService.Model;
-using BeehooeDataService.Model.Enmu;
+using DotNetCore_Dappper.Model;
+using DotNetCore_Dappper.Model.Enmu;
 
-namespace BeehooeDataService.Infrastructure
+namespace DotNetCore_Dappper.Infrastructure
 {
     public class ReadDatabase
     {

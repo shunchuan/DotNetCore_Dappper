@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
-using BeehooeDataService.Infrastructure;
-using BeehooeDataService.Model;
-using BeehooeDataService.Model.Enmu;
+using DotNetCore_Dappper.Infrastructure;
+using DotNetCore_Dappper.Model;
+using DotNetCore_Dappper.Model.Enmu;
 
-namespace BeehooeDataService.Domain
+namespace DotNetCore_Dappper.Domain
 {
     public sealed class DbConnectionFactory
     {

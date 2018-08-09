@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BeehooeDataService.Test
+namespace DotNetCore_Dappper.Test
 {
     [TestClass]
     public class UnitTest1

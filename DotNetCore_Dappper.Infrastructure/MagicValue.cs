@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BeehooeDataService.Infrastructure
+namespace DotNetCore_Dappper.Infrastructure
 {
     public static class MagicValue
     {

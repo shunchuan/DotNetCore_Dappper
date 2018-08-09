@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore_Dappper.API", "DotNetCore_Dappper.API\DotNetCore_Dappper.API.csproj", "{9146D58E-423E-432C-ADD5-93BCA905AA68}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore_Dappper.Business", "DotNetCore_Dappper.Business\DotNetCore_Dappper.Business.csproj", "{59B9A522-8D96-4122-80ED-E3A4C41CF1A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore_Dappper.Domain", "DotNetCore_Dappper.Domain\DotNetCore_Dappper.Domain.csproj", "{C0F33431-9676-4735-A02B-03AF89F6842A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore_Dappper.Infrastructure", "DotNetCore_Dappper.Infrastructure\DotNetCore_Dappper.Infrastructure.csproj", "{26A37935-C0EF-4F4C-87EC-9220B24BFFB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore_Dappper.Model", "DotNetCore_Dappper.Model\DotNetCore_Dappper.Model.csproj", "{F20C9218-36ED-472D-809C-9FBDF4224D56}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore_Dappper.Test", "DotNetCore_Dappper.Test\DotNetCore_Dappper.Test.csproj", "{04E10C7C-CD3F-4AC4-BF29-25DB6F325312}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9146D58E-423E-432C-ADD5-93BCA905AA68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9146D58E-423E-432C-ADD5-93BCA905AA68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9146D58E-423E-432C-ADD5-93BCA905AA68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9146D58E-423E-432C-ADD5-93BCA905AA68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B9A522-8D96-4122-80ED-E3A4C41CF1A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B9A522-8D96-4122-80ED-E3A4C41CF1A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B9A522-8D96-4122-80ED-E3A4C41CF1A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B9A522-8D96-4122-80ED-E3A4C41CF1A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0F33431-9676-4735-A02B-03AF89F6842A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0F33431-9676-4735-A02B-03AF89F6842A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0F33431-9676-4735-A02B-03AF89F6842A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F33431-9676-4735-A02B-03AF89F6842A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26A37935-C0EF-4F4C-87EC-9220B24BFFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26A37935-C0EF-4F4C-87EC-9220B24BFFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26A37935-C0EF-4F4C-87EC-9220B24BFFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26A37935-C0EF-4F4C-87EC-9220B24BFFB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F20C9218-36ED-472D-809C-9FBDF4224D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20C9218-36ED-472D-809C-9FBDF4224D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20C9218-36ED-472D-809C-9FBDF4224D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20C9218-36ED-472D-809C-9FBDF4224D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E10C7C-CD3F-4AC4-BF29-25DB6F325312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E10C7C-CD3F-4AC4-BF29-25DB6F325312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E10C7C-CD3F-4AC4-BF29-25DB6F325312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E10C7C-CD3F-4AC4-BF29-25DB6F325312}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA964E8F-8D7E-418B-A8E5-157AB3475342}
+	EndGlobalSection
+EndGlobal

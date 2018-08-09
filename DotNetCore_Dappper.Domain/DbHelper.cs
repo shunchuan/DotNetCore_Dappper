@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeehooeDataService.Domain
+namespace DotNetCore_Dappper.Domain
 {
     public static class DbHelper
     {
