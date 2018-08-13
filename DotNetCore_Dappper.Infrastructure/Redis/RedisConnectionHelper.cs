@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using DotNetCore_Dappper.Infrastructure.Configurate;
 using StackExchange.Redis;
 
 namespace DotNetCore_Dappper.Infrastructure.Redis
@@ -12,10 +13,10 @@ namespace DotNetCore_Dappper.Infrastructure.Redis
     public class RedisConnectionHelper
     {
         //系统自定义Key前缀
-        public static readonly string SysCustomKey = "";// ConfigurationManager.AppSettings["redisKey"] ?? "";
+        public static string SysCustomKey => ConfigManager.GetValue(MagicValue.REDIS_PREFIX_KEY) ?? "";
 
         //"127.0.0.1:6379,allowadmin=true
-        private static readonly string RedisConnectionString = "";// ConfigurationManager.ConnectionStrings["RedisExchangeHosts"].ConnectionString;
+        private static string RedisConnectionString => ConfigManager.GetValue(MagicValue.REDIS_CONNECTSTR_KEY);
 
         private static readonly object Locker = new object();
         private static ConnectionMultiplexer _instance;

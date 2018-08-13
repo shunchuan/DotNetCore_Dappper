@@ -12,4 +12,12 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetCore_Dappper.API\DotNetCore_Dappper.API.csproj" />
+    <ProjectReference Include="..\DotNetCore_Dappper.Business\DotNetCore_Dappper.Business.csproj" />
+    <ProjectReference Include="..\DotNetCore_Dappper.Domain\DotNetCore_Dappper.Domain.csproj" />
+    <ProjectReference Include="..\DotNetCore_Dappper.Infrastructure\DotNetCore_Dappper.Infrastructure.csproj" />
+    <ProjectReference Include="..\DotNetCore_Dappper.Model\DotNetCore_Dappper.Model.csproj" />
+  </ItemGroup>
+
 </Project>
