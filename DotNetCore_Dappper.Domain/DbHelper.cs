@@ -1,9 +1,7 @@
 ﻿using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DotNetCore_Dappper.Domain
@@ -13,7 +11,6 @@ namespace DotNetCore_Dappper.Domain
         /// <summary>
         /// 查询数据-集合
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <param name="transaction"></param>
@@ -73,11 +70,6 @@ namespace DotNetCore_Dappper.Domain
         /// 执行异步查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
         /// <returns></returns>
         public static Task<IEnumerable<T>> QueryAsync<T>(CommandDefinition commandDefinition)
         {
@@ -125,7 +117,7 @@ namespace DotNetCore_Dappper.Domain
         public static T QueryOne<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null) where T : class
         {
             var dataResult = Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
-            return dataResult != null && dataResult.Count() > 0 ? dataResult.ToList<T>()[0] : null;
+            return dataResult != null && dataResult.Any()? dataResult.ToList()[0] : null;
         }
 
         /// <summary>
@@ -140,7 +132,7 @@ namespace DotNetCore_Dappper.Domain
         public static int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
 
-            using (IDbConnection con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
             {
                 con.Open();
                 return con.Execute(sql, param, transaction, commandTimeout, commandType);
@@ -156,7 +148,7 @@ namespace DotNetCore_Dappper.Domain
         /// <returns></returns>
         public static T ExecuteScalar<T>(string sql, object param = null)
         {
-            using (IDbConnection con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
             {
                 con.Open();
                 return con.ExecuteScalar<T>(sql, param);
@@ -172,9 +164,9 @@ namespace DotNetCore_Dappper.Domain
         /// <returns></returns>
         public static T Execute<T>(string command, Dictionary<string, object> paras)
         {
-            using (IDbConnection con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
             {
-                IDbCommand com = con.CreateCommand();
+                var com = con.CreateCommand();
                 com.CommandText = command;
                 com.CommandType = CommandType.StoredProcedure;
 
@@ -211,7 +203,7 @@ namespace DotNetCore_Dappper.Domain
         /// <returns></returns>
         public static bool WriteBlob(string command, object param)
         {
-            int effactRows = Execute(command, param, null, null, CommandType.Text);
+            var effactRows = Execute(command, param, null, null, CommandType.Text);
 
             return effactRows > 0;
         }

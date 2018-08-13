@@ -11,11 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IRepository\" />
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DotNetCore_Dappper.Infrastructure\DotNetCore_Dappper.Infrastructure.csproj" />
     <ProjectReference Include="..\DotNetCore_Dappper.Model\DotNetCore_Dappper.Model.csproj" />
   </ItemGroup>

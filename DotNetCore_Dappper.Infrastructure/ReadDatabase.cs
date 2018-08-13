@@ -64,7 +64,7 @@ namespace DotNetCore_Dappper.Infrastructure
                 null == CallContext.GetData(MagicValue.CONFIG_DATABASE_MODEL_KEY))
             {
                 model.Dbtype = ReadTypeOfDataBase();
-                model.DbConnectStr = ReadConnectionStrOfDataBase();
+                model.ConnectStr = ReadConnectionStrOfDataBase();
                 CallContext.SetData(MagicValue.CONFIG_LAST_MODIFY_TIME_KEY, fileModifyTime);
                 CallContext.SetData(MagicValue.CONFIG_DATABASE_MODEL_KEY, model);
             }
@@ -74,6 +74,15 @@ namespace DotNetCore_Dappper.Infrastructure
             }
 
             return model;
+        }
+
+        /// <summary>
+        /// 读取数据库配置文件参数，如果本地文件未修改，则读缓存
+        /// </summary>
+        /// <returns></returns>
+        public DatabaseModel DatabaseConfig()
+        {
+            return Configurate.ConfigManager.GetValue<DatabaseModel>("DataBase");
         }
 
         /// <summary>

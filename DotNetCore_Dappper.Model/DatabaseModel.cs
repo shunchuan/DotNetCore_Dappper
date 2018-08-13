@@ -9,6 +9,8 @@ namespace DotNetCore_Dappper.Model
     {
         public DBTYPE Dbtype { set; get; }
 
-        public string DbConnectStr { set; get; }
+        public string Type { set; get; }
+
+        public string ConnectStr { set; get; }
     }
 }

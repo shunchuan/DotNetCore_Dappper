@@ -22,15 +22,27 @@ namespace DotNetCore_Dappper.Domain
         /// <returns></returns>
         public IDbConnection GetOpenConnection()
         {
-            DatabaseModel model = ReadDatabase.CreateInstance.ReaDatabaseConfig();
             IDbConnection con = null;
-            switch (model.Dbtype)
+            //DatabaseModel model = ReadDatabase.CreateInstance.ReaDatabaseConfig();
+            //switch (model.Dbtype)
+            //{
+            //    case DBTYPE.MySql:
+            //        con = new MySql.Data.MySqlClient.MySqlConnection(model.ConnectStr);
+            //        break;
+            //    case DBTYPE.SqlServer:
+            //        con = new System.Data.SqlClient.SqlConnection(model.ConnectStr);
+            //        break;
+            //    default:
+            //        break;
+            //}
+            DatabaseModel model = ReadDatabase.CreateInstance.DatabaseConfig();
+            switch (model.Type.ToUpper())
             {
-                case DBTYPE.MySql :
-                    con = new MySql.Data.MySqlClient.MySqlConnection(model.DbConnectStr);
+                case "MYSQL":
+                    con = new MySql.Data.MySqlClient.MySqlConnection(model.ConnectStr);
                     break;
-                case DBTYPE.SqlServer:
-                    con = new System.Data.SqlClient.SqlConnection(model.DbConnectStr);
+                case "MSSQL":
+                    con = new System.Data.SqlClient.SqlConnection(model.ConnectStr);
                     break;
                 default:
                     break;
