@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Text;
 using DotNetCore_Dappper.Infrastructure;
 using DotNetCore_Dappper.Model;
@@ -13,7 +14,7 @@ namespace DotNetCore_Dappper.Domain
         private static DbConnectionFactory _instance;
         private DbConnectionFactory()
         { }
-
+        
         public static DbConnectionFactory Instance => _instance ?? (_instance = new DbConnectionFactory());
 
         /// <summary>
@@ -22,7 +23,6 @@ namespace DotNetCore_Dappper.Domain
         /// <returns></returns>
         public IDbConnection GetOpenConnection()
         {
-            IDbConnection con = null;
             //DatabaseModel model = ReadDatabase.CreateInstance.ReaDatabaseConfig();
             //switch (model.Dbtype)
             //{
@@ -36,24 +36,45 @@ namespace DotNetCore_Dappper.Domain
             //        break;
             //}
             DatabaseModel model = ReadDatabase.CreateInstance.DatabaseConfig();
+            if (null == model.Type)
+            {
+                throw new SqlNullValueException();
+            }
             switch (model.Type.ToUpper())
             {
                 case "MYSQL":
-                    con = new MySql.Data.MySqlClient.MySqlConnection(model.ConnectStr);
+                    model.Dbtype = DBTYPE.MySql;
                     break;
                 case "MSSQL":
-                    con = new System.Data.SqlClient.SqlConnection(model.ConnectStr);
+                    model.Dbtype = DBTYPE.SqlServer;
                     break;
                 default:
-                    break;
+                    throw new NullReferenceException();
             }
 
-            if (con == null)
+            return GetConn(model);
+        }
+
+        public IDbConnection GetOpenConnection(string connectStr, DBTYPE type)
+        {
+            return GetConn(new DatabaseModel() { Dbtype = type,ConnectStr = connectStr });
+        }
+
+        private IDbConnection GetConn(DatabaseModel model)
+        {
+            if (string.IsNullOrEmpty(model.ConnectStr))
             {
-                throw new Exception("数据库连接配置不正确。");
+                throw new NullReferenceException();
             }
-
-            return con;
+            switch (model.Dbtype)
+            {
+                case DBTYPE.MySql:
+                    return new MySql.Data.MySqlClient.MySqlConnection(model.ConnectStr);
+                case DBTYPE.SqlServer:
+                    return new System.Data.SqlClient.SqlConnection(model.ConnectStr);
+                default:
+                    throw new NullReferenceException();
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace DotNetCore_Dappper.Domain
 
             sb.Append("_Repository");
 
-            sb.Append("." + classname);
+            sb.Append("." + classname+ "Repository");
             return (T) Activator.CreateInstance(Assembly.Load(name).GetType(sb.ToString(), false));
         }
     }

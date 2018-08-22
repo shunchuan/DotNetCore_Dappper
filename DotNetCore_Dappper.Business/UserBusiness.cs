@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DotNetCore_Dappper.Domain;
 using DotNetCore_Dappper.Domain.IRepository;
+using DotNetCore_Dappper.Model.Entity;
 using MSSql = DotNetCore_Dappper.Domain.MSSql_Repository;
 
 namespace DotNetCore_Dappper.Business
@@ -11,8 +12,14 @@ namespace DotNetCore_Dappper.Business
     {
         public IEnumerable<string> GetUserName()
         {
-            var userInfo = DataAccess<IUserInfo>.CreateObject("UserInfo");
+            var userInfo = DataAccess<IUserInfoRepository>.CreateObject("UserInfo");
             return userInfo.GetUserName();
+        }
+
+        public IEnumerable<UserInfo> GetUserInfos()
+        {
+            var userInfo = DataAccess<IUserInfoRepository>.CreateObject("UserInfo");
+            return userInfo.GetUserInfos();
         }
     }
 }

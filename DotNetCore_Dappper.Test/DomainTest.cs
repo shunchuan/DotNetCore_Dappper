@@ -13,7 +13,7 @@ namespace DotNetCore_Dappper.Test
         [TestMethod]
         public void GetDataAccess()
         {
-            Assert.IsInstanceOfType(DataAccess<IUserInfo>.CreateObject("UserInfo"), typeof(IUserInfo));
+            Assert.IsInstanceOfType(DataAccess<IUserInfoRepository>.CreateObject("UserInfo"), typeof(IUserInfoRepository));
         }
     }
 }

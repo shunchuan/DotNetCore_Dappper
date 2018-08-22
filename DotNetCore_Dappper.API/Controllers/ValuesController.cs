@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetCore_Dappper.Business;
+using DotNetCore_Dappper.Model.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCore_Dappper.API.Controllers
@@ -23,6 +24,12 @@ namespace DotNetCore_Dappper.API.Controllers
         {
             return new UserBusiness().GetUserName();
         }
+
+        //[HttpGet]
+        //public IEnumerable<UserInfo> Get()
+        //{
+        //    return new UserBusiness().GetUserInfos();
+        //}
 
         // POST api/values
         [HttpPost]
