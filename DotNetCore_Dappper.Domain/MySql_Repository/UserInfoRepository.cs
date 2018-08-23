@@ -7,18 +7,12 @@ using DotNetCore_Dappper.Model.Entity;
 
 namespace DotNetCore_Dappper.Domain.MySql_Repository
 {
-    public class UserInfoRepository: DapperExtensionsRepositoryBase<UserInfo>,IUserInfoRepository
+    public class UserInfoRepository: DapperRepositoryBase, IUserInfoRepository
     {
         public IEnumerable<string> GetUserName()
         {
             string sql = "select  name from userInfo";
             return Query<string>(sql);
-        }
-
-
-        public IEnumerable<UserInfo> GetUserInfos()
-        {
-            return Query("select * from userInfo");
         }
     }
 }

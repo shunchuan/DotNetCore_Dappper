@@ -6,9 +6,8 @@ using DotNetCore_Dappper.Model.Entity;
 
 namespace DotNetCore_Dappper.Domain.IRepository
 {
-    public interface IUserInfoRepository: IDapperExtensionsRepositoryBase<UserInfo>
+    public interface IUserInfoRepository: IDapperRepositoryBase
     {
         IEnumerable<string> GetUserName();
-        IEnumerable<UserInfo> GetUserInfos();
     }
 }

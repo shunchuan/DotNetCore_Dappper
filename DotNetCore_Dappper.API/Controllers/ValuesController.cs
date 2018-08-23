@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetCore_Dappper.Business;
-using DotNetCore_Dappper.Model.Entity;
+using DotNetCore_Dappper.Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCore_Dappper.API.Controllers
@@ -19,23 +19,25 @@ namespace DotNetCore_Dappper.API.Controllers
         //}
 
         // GET api/values/5
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new UserBusiness().GetUserName();
-        }
-
         //[HttpGet]
-        //public IEnumerable<UserInfo> Get()
+        //public IEnumerable<string> Get()
         //{
-        //    return new UserBusiness().GetUserInfos();
+        //    return new UserBusiness().GetUserName();
         //}
+
+        [HttpGet]
+        public IEnumerable<UserInfo> Get()
+        {
+            return new UserBusiness().GetUserInfos();
+        }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
+
+      
 
         // PUT api/values/5
         [HttpPut("{id}")]

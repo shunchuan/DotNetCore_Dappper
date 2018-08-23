@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
-    <PackageReference Include="DapperExtensions" Version="1.6.3" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.12" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
   </ItemGroup>
