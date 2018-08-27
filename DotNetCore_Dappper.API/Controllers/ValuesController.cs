@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCore_Dappper.Business;
 using DotNetCore_Dappper.Domain.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCore_Dappper.API.Controllers
@@ -24,10 +25,11 @@ namespace DotNetCore_Dappper.API.Controllers
         //{
         //    return new UserBusiness().GetUserName();
         //}
-
+        [Authorize]
         [HttpGet]
         public IEnumerable<UserInfo> Get()
         {
+            var aa= HttpContext.User.Claims;
             return new UserBusiness().GetUserInfos();
         }
 

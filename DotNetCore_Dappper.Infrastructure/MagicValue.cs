@@ -25,5 +25,10 @@ namespace DotNetCore_Dappper.Infrastructure
         /// Redis连接字符串
         /// </summary>
         public static string REDIS_CONNECTSTR_KEY => "Redis:ConnectStr";
+
+        /// <summary>
+        /// JWT基础配置数据
+        /// </summary>
+        public static string JWT_CONFIG_MODEL_KEY => "JWT_CONFIG_MODEL_KEY";
     }
 }
