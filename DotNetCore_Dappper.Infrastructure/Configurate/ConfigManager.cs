@@ -50,7 +50,7 @@ namespace DotNetCore_Dappper.Infrastructure.Configurate
         /// <returns></returns>  
         public static string GetValue(string key)
         {
-            return Config.GetSection(key).Value.ToString().Trim();
+            return Config.GetSection(key)?.Value.ToString().Trim();
         }
     }
 }
