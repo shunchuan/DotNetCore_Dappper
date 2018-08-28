@@ -60,6 +60,10 @@ namespace DotNetCore_Dappper.Infrastructure.Redis
         private static ConnectionMultiplexer GetManager(string connectionString = null)
         {
             connectionString = connectionString ?? RedisConnectionString;
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentNullException(nameof(connectionString),@"redis connectionString is empty");
+            }
             var connect = ConnectionMultiplexer.Connect(connectionString);
 
             //注册如下事件
