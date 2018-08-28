@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DotNetCore_Dappper.Infrastructure.JWT;
+using DotNetCore_Dappper.Infrastructure.Jwt;
 using DotNetCore_Dappper.Model.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

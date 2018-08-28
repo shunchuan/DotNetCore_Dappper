@@ -9,7 +9,7 @@ using DotNetCore_Dappper.Model.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DotNetCore_Dappper.Infrastructure.JWT
+namespace DotNetCore_Dappper.Infrastructure.Jwt
 {
     public class JwtManager
     {
@@ -41,6 +41,8 @@ namespace DotNetCore_Dappper.Infrastructure.JWT
                 claims.Add(new Claim(property.Name, (string) t.GetProperty(property.Name).GetValue(model) ?? ""));
             }
 
+            claims.Add(new Claim(JwtRegisteredClaimNames.Acr,
+                new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf,
                 new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp,
