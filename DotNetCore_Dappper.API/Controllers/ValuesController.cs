@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCore_Dappper.Business;
 using DotNetCore_Dappper.Domain.Entity;
+using DotNetCore_Dappper.Infrastructure.Attribute;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite.Internal.UrlActions;
 
 namespace DotNetCore_Dappper.API.Controllers
 {
@@ -25,11 +27,16 @@ namespace DotNetCore_Dappper.API.Controllers
         //{
         //    return new UserBusiness().GetUserName();
         //}
+        /// <summary>
+        /// 获取所有用户信息
+        /// </summary>
+        /// <returns>UserInfo</returns>
         [Authorize]
         [HttpGet]
         public IEnumerable<UserInfo> Get()
         {
-            var aa= HttpContext.User.Claims;
+            
+               var aa= HttpContext.User.Claims;
             return new UserBusiness().GetUserInfos();
         }
 
