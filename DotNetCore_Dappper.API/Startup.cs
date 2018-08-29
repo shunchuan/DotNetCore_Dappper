@@ -66,7 +66,7 @@ namespace DotNetCore_Dappper.API
                     Title = "DotNetCore_Dapper API",
                     Description = "A simple example ASP.NET Core Web API For Dapper ORM ",
                     TermsOfService = "None",
-                    Contact = new Contact { Name = "Caosc", Email = "1289158751@qq.com", Url = "https://www.woaihuaye.com" },
+                    Contact = new Contact { Name = "Caosc", Email = "1289158751@qq.com", Url = "https://github.com/shunchuan" },
                     License = new License { Name = "Use under LICX", Url = "https://example.com/license" }
                 });
                 //为Swagger的JSON和UI设置XML注释
