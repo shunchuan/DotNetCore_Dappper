@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DotNetCore_Dappper.Model;
+﻿using DotNetCore_Dappper.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace DotNetCore_Dappper.API.Extensions
+namespace DotNetCore_Dappper.Infrastructure.Extensions
 {
     public static class ResultMessageExtension
     {

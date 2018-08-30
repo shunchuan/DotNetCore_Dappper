@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<database>
-  <type>mysql</type>
-  <connectionStr>Server=192.168.3.5;Database=Test;User ID=test;Password=***;SslMode=none;Charset=utf8;</connectionStr>
-</database>

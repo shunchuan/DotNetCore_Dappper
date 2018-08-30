@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DotNetCore_Dappper.Infrastructure.Filter;
+using DotNetCore_Dappper.Infrastructure.Log4Net;
 using DotNetCore_Dappper.Infrastructure.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -54,9 +56,16 @@ namespace DotNetCore_Dappper.API
                         ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                     };
                 });
-            services.AddMvc();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<HttpGlobalExceptionFilter>();
+            });
+            //services.AddMvc();
 
             //services.AddSingleton<RedisHelper>(new RedisHelper(1));
+
+            services.AddSingleton<ILogger>(new Log4NetProvider("log4net.config").CreateLogger("Log4NetRepostory"));
 
             services.AddSwaggerGen(c =>
             {
@@ -87,7 +96,7 @@ namespace DotNetCore_Dappper.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {

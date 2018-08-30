@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DotNetCore_Dappper.API.Extensions;
+using DotNetCore_Dappper.Infrastructure.Extensions;
 using DotNetCore_Dappper.Infrastructure.Jwt;
 using DotNetCore_Dappper.Model;
 using DotNetCore_Dappper.Model.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCore_Dappper.API.Controllers
@@ -28,6 +26,7 @@ namespace DotNetCore_Dappper.API.Controllers
         [HttpGet("{username}/{password}", Name = "Get")]
         public async Task<IActionResult> Get(string username,string password)
         {
+            throw new Exception();
             var responseBase = new ResponseBase("1", "",
                 new JwtManager().GenerateToken(new JwtClaimModel() {UserName = username,RoleId = "TheRoleID", RoleName = "TheRoleName"}));
             return
