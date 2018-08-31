@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using DotNetCore_Dappper.Model.Enmu;
 
 namespace DotNetCore_Dappper.Domain.RepositoryBase
 {

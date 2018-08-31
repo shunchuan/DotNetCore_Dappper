@@ -4,32 +4,53 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
+using DotNetCore_Dappper.Model.Enmu;
 
 namespace DotNetCore_Dappper.Domain.RepositoryBase
 {
     public class DapperRepositoryBase: IDapperRepositoryBase
     {
+        private readonly IDbConnection _con = null;
+
+        #region 构造函数
+
+        public DapperRepositoryBase()
+        {
+            _con = DbConnectionFactory.Instance.GetOpenConnection();
+        }
+
+        public DapperRepositoryBase(string connectStr, string type)
+        {
+            _con = DbConnectionFactory.Instance.GetOpenConnection(connectStr, type);
+        }
+
+        public DapperRepositoryBase(string connectStr, DBTYPE type)
+        {
+            _con = DbConnectionFactory.Instance.GetOpenConnection(connectStr, type);
+        }
+
+        #endregion
 
         public T Get<T>(object id) where T : class
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Get<T>(id);
+                return _con.Get<T>(id);
             }
         }
 
         public  Task<T> GetAsync<T>(object id) where T : class
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.GetAsync<T>(id);
+                return _con.GetAsync<T>(id);
             }
         }
         public IEnumerable<T> GetAll<T>() where T:class 
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.GetAll<T>();
+                return _con.GetAll<T>();
             }
         }
 
@@ -37,57 +58,57 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
 
         public long Insert<T>(T obj) where T : class
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Insert(obj);
+                return _con.Insert(obj);
             }
         }
 
         public long Insert<T>(List<T> list) 
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Insert(list);
+                return _con.Insert(list);
             }
         }
 
         public bool Update<T>(T obj) where T : class
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Update(obj);
+                return _con.Update(obj);
             }
         }
 
         public bool Update<T>(List<T> list)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Update(list);
+                return _con.Update(list);
             }
         }
 
         public bool Delete<T>(T obj) where T : class
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Delete(obj);
+                return _con.Delete(obj);
             }
         }
 
         public bool Delete<T>(List<T> list)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Delete(list);
+                return _con.Delete(list);
             }
         }
 
         public bool DeleteAll<T>() where T : class
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.DeleteAll<T>();
+                return _con.DeleteAll<T>();
             }
         }
 
@@ -103,9 +124,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public  IEnumerable<dynamic> Query(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Query(sql, param, transaction, buffered, commandTimeout, commandType);
+                return _con.Query(sql, param, transaction, buffered, commandTimeout, commandType);
             }
         }
 
@@ -122,9 +143,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public IEnumerable<T> Query<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
+                return _con.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
             }
         }
 
@@ -140,9 +161,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
+                return _con.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
             }
         }
 
@@ -153,10 +174,10 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public Task<IEnumerable<T>> QueryAsync<T>(CommandDefinition commandDefinition)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                con.Open();
-                return con.QueryAsync<T>(commandDefinition);
+                _con.Open();
+                return _con.QueryAsync<T>(commandDefinition);
             }
         }
         /// <summary>
@@ -173,9 +194,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public IEnumerable<T> QueryMultiple<T>(string sql, out int totalCount, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                var multi = con.QueryMultiple(sql, param, transaction, commandTimeout, commandType);
+                var multi = _con.QueryMultiple(sql, param, transaction, commandTimeout, commandType);
 
                 totalCount = int.Parse(multi.Read<long>().Single().ToString());
                 return multi.Read<T>();
@@ -211,9 +232,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         public int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
 
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.Execute(sql, param, transaction, commandTimeout, commandType);
+                return _con.Execute(sql, param, transaction, commandTimeout, commandType);
             }
         }
 
@@ -226,9 +247,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public T ExecuteScalar<T>(string sql, object param = null)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                return con.ExecuteScalar<T>(sql, param);
+                return _con.ExecuteScalar<T>(sql, param);
             }
         }
 
@@ -241,9 +262,9 @@ namespace DotNetCore_Dappper.Domain.RepositoryBase
         /// <returns></returns>
         public T Execute<T>(string command, Dictionary<string, object> paras)
         {
-            using (var con = DbConnectionFactory.Instance.GetOpenConnection())
+            using (_con)
             {
-                var com = con.CreateCommand();
+                var com = _con.CreateCommand();
                 com.CommandText = command;
                 com.CommandType = CommandType.StoredProcedure;
 

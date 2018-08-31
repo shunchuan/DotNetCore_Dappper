@@ -7,6 +7,10 @@ using DotNetCore_Dappper.Model;
 
 namespace DotNetCore_Dappper.Domain
 {
+    /// <summary>
+    /// 数据库仓储反射类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DataAccess<T>
     {
         public static T CreateObject(string classname)

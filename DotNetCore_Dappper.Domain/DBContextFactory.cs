@@ -55,9 +55,33 @@ namespace DotNetCore_Dappper.Domain
             return GetConn(model);
         }
 
+        public IDbConnection GetOpenConnection(string connectStr, string type)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new ArgumentNullException();
+            }
+
+            DBTYPE dbtype ;
+            
+
+            switch (type.ToUpper())
+            {
+                case "MYSQL":
+                    dbtype = DBTYPE.MySql;
+                    break;
+                case "MSSQL":
+                    dbtype = DBTYPE.SqlServer;
+                    break;
+                default:
+                    throw new NullReferenceException();
+            }
+            return GetConn(new DatabaseModel() { Dbtype = dbtype, ConnectStr = connectStr });
+        }
+
         public IDbConnection GetOpenConnection(string connectStr, DBTYPE type)
         {
-            return GetConn(new DatabaseModel() { Dbtype = type,ConnectStr = connectStr });
+            return GetConn(new DatabaseModel(connectStr, type));
         }
 
         private IDbConnection GetConn(DatabaseModel model)
