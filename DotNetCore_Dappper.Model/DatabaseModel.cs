@@ -12,5 +12,16 @@ namespace DotNetCore_Dappper.Model
         public string Type { set; get; }
 
         public string ConnectStr { set; get; }
+
+        public DatabaseModel()
+        {
+
+        }
+
+        public DatabaseModel(string connectStr, DBTYPE dbtype)
+        {
+            ConnectStr = connectStr;
+            Dbtype = dbtype;
+        }
     }
 }

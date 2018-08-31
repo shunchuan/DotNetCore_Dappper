@@ -19,6 +19,8 @@ namespace DotNetCore_Dappper.Infrastructure.Filter
         public void OnException(ExceptionContext context)
         {
             _logger.LogError("触发了全局Exception");
+
+            _logger.LogError(context.Exception,"触发了全局Exception",null );
         }
     }
 }

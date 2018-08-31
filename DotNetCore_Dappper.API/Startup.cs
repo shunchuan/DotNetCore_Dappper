@@ -83,21 +83,12 @@ namespace DotNetCore_Dappper.API
                 var xmlPath = Path.Combine(basePath, "DotNetCore_Dappper.API.xml");
                 c.IncludeXmlComments(xmlPath);
             });
-
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy(
-            //        "RolePolicy",
-            //        authBuilder =>
-            //        {
-            //            authBuilder.RequireClaim("RoleId", "111");
-            //        });
-            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

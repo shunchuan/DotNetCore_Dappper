@@ -13,5 +13,10 @@ namespace DotNetCore_Dappper.Model.Authentication
         public string JwtAudience { set; get; }
 
         public double JwtExpireDays { set; get; } = 30;
+
+        public JwtModel()
+        {
+
+        }
     }
 }
