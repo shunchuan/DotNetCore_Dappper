@@ -18,7 +18,7 @@ namespace DotNetCore_Dappper.Infrastructure.Configurate
                 Config = new ConfigurationBuilder()
                     .SetBasePath(currentClassDir)
                     .AddJsonFile("appsettings.json", false, true)
-                    .Add(new JsonConfigurationSource { Path = "appsettings.json", Optional = false, ReloadOnChange = true })
+                    //.Add(new JsonConfigurationSource { Path = "appsettings.json", Optional = false, ReloadOnChange = true })
                     .Build();
             }
         }
