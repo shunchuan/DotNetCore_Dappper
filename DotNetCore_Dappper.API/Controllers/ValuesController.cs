@@ -31,7 +31,7 @@ namespace DotNetCore_Dappper.API.Controllers
         /// 获取所有用户信息
         /// </summary>
         /// <returns>UserInfo</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IEnumerable<UserInfo> Get()
         {

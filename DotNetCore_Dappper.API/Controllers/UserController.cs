@@ -26,7 +26,7 @@ namespace DotNetCore_Dappper.API.Controllers
         [HttpGet("{username}/{password}", Name = "Get")]
         public async Task<IActionResult> Get(string username,string password)
         {
-            var responseBase = new ResponseBase("1", "",
+            var responseBase = new ResponseBase(1, "",
                 new JwtManager().GenerateToken(new JwtClaimModel() {UserName = username,RoleId = "TheRoleID", RoleName = "TheRoleName"}));
             return
                 responseBase.ToActionResult();
