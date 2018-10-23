@@ -14,11 +14,11 @@ namespace DotNetCore_Dappper.Infrastructure.Extensions
         {
             switch (result.Status)
             {
-                case "1":
+                case 1:
                 {
                     return new OkObjectResult(result);
                 }
-                case "0":
+                case 0:
                 {
                     return new BadRequestObjectResult(result);
                 }

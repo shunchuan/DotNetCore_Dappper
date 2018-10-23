@@ -9,7 +9,7 @@ namespace DotNetCore_Dappper.Model
         /// <summary>
         /// 状态 （0失败 1 成功）
         /// </summary>
-        public string Status { set; get; }
+        public int Status { set; get; }
 
         /// <summary>
         /// 提示信息
@@ -21,7 +21,7 @@ namespace DotNetCore_Dappper.Model
         /// </summary>
         public Object Response { set; get; }
 
-        public ResponseBase(string status, string message, Object response)
+        public ResponseBase(int status, string message, Object response)
         {
             Status = status;
             Message = message;
