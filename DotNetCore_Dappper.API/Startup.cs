@@ -4,15 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using DotNetCore_Dappper.API.Controllers;
+using DotNetCore_Dappper.Infrastructure.Autofac;
 using DotNetCore_Dappper.Infrastructure.Filter;
 using DotNetCore_Dappper.Infrastructure.Log4Net;
+using DotNetCore_Dappper.Infrastructure.Middleware;
 using DotNetCore_Dappper.Infrastructure.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -30,7 +37,7 @@ namespace DotNetCore_Dappper.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //添加 jwt 认证服务
             services.AddAuthentication(options =>
@@ -57,16 +64,21 @@ namespace DotNetCore_Dappper.API
                     };
                 });
 
+            services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+
             services.AddMvc(options =>
             {
+                // add filters
                 options.Filters.Add<HttpGlobalExceptionFilter>();
+                options.Filters.Add(new SampleActionFilter());
             });
             //services.AddMvc();
 
             //services.AddSingleton<RedisHelper>(new RedisHelper(1));
 
-            services.AddSingleton<ILogger>(new Log4NetProvider("log4net.config").CreateLogger("Log4NetRepostory"));
+            //services.AddSingleton<ILogger>(new Log4NetProvider("log4net.config").CreateLogger("Log4NetRepostory"));
 
+            // add swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -83,11 +95,21 @@ namespace DotNetCore_Dappper.API
                 var xmlPath = Path.Combine(basePath, "DotNetCore_Dappper.API.xml");
                 c.IncludeXmlComments(xmlPath);
             });
+            
+            // add autofac Ioc container
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<DefaultModule>();
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+            return container.Resolve<IServiceProvider>();
+            //return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            //待Fix,提示未注册Controller
+            app.AppUseMiddleware();
             loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
