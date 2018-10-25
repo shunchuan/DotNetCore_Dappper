@@ -36,7 +36,7 @@ namespace DotNetCore_Dappper.Infrastructure.Configurate
             {
                 Config.GetSection(key).Bind(sysConfig);
             }
-            catch (Exception ex)
+            catch
             {
                 sysConfig = null;
             }
