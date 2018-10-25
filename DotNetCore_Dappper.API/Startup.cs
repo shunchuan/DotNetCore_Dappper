@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DotNetCore_Dappper.API.Controllers;
-using DotNetCore_Dappper.Infrastructure.Autofac;
 using DotNetCore_Dappper.Infrastructure.Filter;
+using DotNetCore_Dappper.Infrastructure.Ioc;
 using DotNetCore_Dappper.Infrastructure.Log4Net;
 using DotNetCore_Dappper.Infrastructure.Middleware;
 using DotNetCore_Dappper.Infrastructure.Redis;
@@ -51,21 +51,17 @@ namespace DotNetCore_Dappper.API
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("Jwt").GetValue<string>("JwtKey"))),
-
                         ValidateIssuer = true,
                         ValidIssuer = Configuration.GetSection("Jwt").GetValue<string>("JwtIssuer"),
-
                         ValidateAudience = true,
                         ValidAudience = Configuration.GetSection("Jwt").GetValue<string>("JwtAudience"),
-
                         ValidateLifetime = true, //validate the expiration and not before values in the token
-
                         ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                     };
                 });
 
-            // 导致Controll未注册异常
-            //services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+            // 替换框架所有者，用ServiceBasedControllerActivator替换DefaultControllerActivator（意味着框架现在会尝试从IServiceProvider中解析控制器实例）
+            services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
 
             services.AddMvc(options =>
             {
@@ -73,11 +69,6 @@ namespace DotNetCore_Dappper.API
                 //options.Filters.Add<HttpGlobalExceptionFilter>();
                 options.Filters.Add(new SampleActionFilter());
             });
-            //services.AddMvc();
-
-            //services.AddSingleton<RedisHelper>(new RedisHelper(1));
-
-            //services.AddSingleton<ILogger>(new Log4NetProvider("log4net.config").CreateLogger("Log4NetRepostory"));
 
             // add swagger
             services.AddSwaggerGen(c =>
@@ -98,13 +89,12 @@ namespace DotNetCore_Dappper.API
             });
 
             // add autofac Ioc container
-            //待Fix,提示未注册Controller
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<DefaultModule>();
+            AutofacRegisterProperties(containerBuilder);
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
-            return container.Resolve<IServiceProvider>();
-            //return new AutofacServiceProvider(container);
+            return container.Resolve<IServiceProvider>(); //return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,6 +116,17 @@ namespace DotNetCore_Dappper.API
 
             app.UseMvc();
             app.AppUseMiddleware();
+        }
+
+        /// <summary>
+        /// 使用autofac进行属性注入
+        /// blog:http://www.10tiao.com/html/337/201801/2660101085/1.html
+        /// </summary>
+        /// <param name="containerBuilder"></param>
+        public void AutofacRegisterProperties(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterType<ValuesController>().PropertiesAutowired();
+            containerBuilder.RegisterType<UserController>().PropertiesAutowired();
         }
     }
 }
