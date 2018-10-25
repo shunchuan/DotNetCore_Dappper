@@ -64,12 +64,13 @@ namespace DotNetCore_Dappper.API
                     };
                 });
 
-            services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+            // 导致Controll未注册异常
+            //services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
 
             services.AddMvc(options =>
             {
                 // add filters
-                options.Filters.Add<HttpGlobalExceptionFilter>();
+                //options.Filters.Add<HttpGlobalExceptionFilter>();
                 options.Filters.Add(new SampleActionFilter());
             });
             //services.AddMvc();
@@ -95,8 +96,9 @@ namespace DotNetCore_Dappper.API
                 var xmlPath = Path.Combine(basePath, "DotNetCore_Dappper.API.xml");
                 c.IncludeXmlComments(xmlPath);
             });
-            
+
             // add autofac Ioc container
+            //待Fix,提示未注册Controller
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<DefaultModule>();
             containerBuilder.Populate(services);
@@ -108,9 +110,8 @@ namespace DotNetCore_Dappper.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //待Fix,提示未注册Controller
-            app.AppUseMiddleware();
-            loggerFactory.AddLog4Net();
+            //工厂方式注册日志组件
+            //loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -124,6 +125,7 @@ namespace DotNetCore_Dappper.API
             });
 
             app.UseMvc();
+            app.AppUseMiddleware();
         }
     }
 }
